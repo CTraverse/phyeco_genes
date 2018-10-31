@@ -5,15 +5,20 @@ Created on Wed Oct 18 16:58:56 2017
 @author: chuck
 """
 
-
+"""
+This script will take the output from the midas pipeline and pull out the genes that are common
+to all bacteria. It specifically pulls out the genes mapping to the 42 universal genes. These are
+very messy metagenome data. 
+"""
 
 import os, gzip
 from sys import argv
 
 
 script, midas_db_path, sorted_phyeco_map, phyeco_genes, metagenome_path, = argv
-#Build dictionary of representative genomes as keys that call phyeco_id and gene_id
 
+
+#Build dictionary of representative genomes as keys that call phyeco_id and gene_id
 phyeco = list(open(sorted_phyeco_map, 'r'))
 
 del phyeco[0] #remove header
@@ -41,7 +46,6 @@ with open(phyeco_genes, 'r') as phy:
 
 
 #Build dictionary of genome of interest with gene_id as keys that call scaffold, gene start, gene stop, and strand
-##I wrote this as a function to clean up the master loop below. 
 def get_features(path_to_features): #Uses the path to a specific species features file as the input
 
     dict_of_features = {} #Create blank dicitonary
